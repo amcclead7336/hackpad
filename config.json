@@ -67,7 +67,6 @@
 				"parms": [],
                 "Des": ""
             }
-
 		]
 	},
 	{
@@ -90,21 +89,42 @@
 		]
 	},
 		{
-		"title":"Scanning ",
+		"title":"Scan/Enum",
 		"keys":[
 			{
                 "lname": "Baseline nmap scan",
 				"qname": "NMAP1",
-				"ctext": "python3 -m http.server 8000",
-				"parms": [],
-                "Des": "Can use wget http://<IP>:8000/<filename> to download file"
+				"ctext": "nmap -p- -sT -sC -sV -O -T4 {RHOST} -oA {File}",
+				"parms": ["RHOST", "File"],
+                "Des": "Scans all ports with TCP Scan, Script scan, Version scan, and OS scan. It outputs data to File"
             },
 			{
-                "lname": "Python http.server",
-				"qname": "PHS",
-				"ctext": "powershell.exe (New-Object System.Net.WebClient).DownloadFile('{URL}/{Filename}','{Filename}')\n",
-				"parms": ["URL", "Filename"],
-                "Des": ""
+                "lname": "SMB Enum nmap scan",
+				"qname": "SMBenum",
+				"ctext": "nmap -p 445 --script=smb-enum-shares.nse,smb-enum-users.nse {RHOST} -oA {File}",
+				"parms": ["RHOST", "File"],
+                "Des": "Nmap scan that uses common smb enum scripts"
+            },
+			{
+                "lname": "SMB Enum List Shares",
+				"qname": "SMBls",
+				"ctext": "smbclient -L \\\\\\\\{RHOST}",
+				"parms": ["RHOST"],
+                "Des": "List Available Shares"
+            },
+			{
+                "lname": "SNMP Enum",
+				"qname": "SNMPenum",
+				"ctext": "onesixtyone -c {CommunityStr} {RHOST}",
+				"parms": ["CommunityStr", "RHOST"],
+                "Des": "Can Enumerate SNMP by brute forcing community strings. Can be downloaded from here https://github.com/trailofbits/onesixtyone/blob/master/dict.txt"
+            },
+			{
+                "lname": "SNMP Enum",
+				"qname": "SNMPenum",
+				"ctext": "onesixtyone -c {CommunityStr} {RHOST}",
+				"parms": ["CommunityStr", "RHOST"],
+                "Des": "Can Enumerate SNMP by brute forcing community strings. Can be downloaded from here https://github.com/trailofbits/onesixtyone/blob/master/dict.txt"
             }
 		]
 	}
