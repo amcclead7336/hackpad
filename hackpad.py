@@ -8,6 +8,8 @@ import pyperclip3
 button_columns = 4
 
 def fill_output(parms, ctext, lname, des):
+		"""Clears the existing text from output and inserts the copy text with filled in
+		Parameters if they're available."""
 
     output.delete(0, END)
     for parm in parms:
@@ -21,50 +23,70 @@ def fill_output(parms, ctext, lname, des):
 
     output.insert(0, ctext)
     return
+    
 
 def copy_button():
+		"""Copies text in output to user's clipboard"""
+	
     pyperclip3.copy(output.get())
+
 
 def main():
     with open("config.json", "r") as f:
         configs = json.loads(f.read())
-
+		
+		# Defining root Tk object that all other widgets will be stored in
     root = Tk()
     root.title("Hackpad")
-    root.geometry("1025x725")
+    # root.geometry("1025x725")
     # root.iconbitmap("images/winged-arrow_38729.ico")
 
+		# Breaking the main screen into sections
+		# Parameters frame
     parms_frame = LabelFrame(root, text="Parameters", padx=5, pady=5)
     parms_frame.grid(row=0, column=0, padx=10, pady=10)
 
+		# Buttons notebook, enables different tabs for each section
     button_notebook = ttk.Notebook(root)
     button_notebook.grid(row=1, column=0)
 
+		# Output Frame
     output_frame = LabelFrame(root, text="Output", padx=5, pady=5)
     output_frame.grid(row=2, column=0, padx=10, pady=10)
 
+		# Description Frame
     des_frame = LabelFrame(root, text="Description", padx=5, pady=5)
     des_frame.grid(row=0, column=1, padx=10, pady=10)
 
+
+		# Inside the button_notebook are LabelFrames for each section in the config.json
     sections = []
+    # Filling parms for all buttons
     parms = []
-    for j, section in enumerate(configs["sections"]):
+    for section in configs["sections"]:
         sections.append(LabelFrame(button_notebook, text=section["title"]))
-        sections[j].pack(fill="both", expand=1)
+        sections[-1].pack(fill="both", expand=1)
         buttons = []
+        
+        button_row = 0
+        button_count = 0
+        
         for key in section["keys"]:
             fill_output2 = partial(fill_output, key["parms"], key["ctext"], key["lname"], key["des"])
-            buttons.append(Button(sections[j], text=key["qname"], width=15, height=5, command=fill_output2))
+            
+            try:
+            		buttons.append(Button(sections[-1], text=key["qname"], bg=key["color"], width=15, height=5, command=fill_output2))
+            
+            except KeyError:
+            		buttons.append(Button(sections[-1], text=key["qname"], width=15, height=5, command=fill_output2))
+            		
             parms += key["parms"]
-
-        b_row = 0
-        for i, button in enumerate(buttons):
-
-            if i != 0 and i % button_columns == 0:
-                b_row += 1
-
-            button.grid(row=b_row, column=i % button_columns)
-
+						
+						if button_count != 0 and button_count % button_columns == 0:
+                button_row += 1
+            
+            buttons[-1].grid(row=b_row, column=i % button_columns)
+            
         button_notebook.add(sections[j],text=section["title"])
 
     parms = sorted(list(set(parms)))
