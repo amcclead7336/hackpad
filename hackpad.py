@@ -2,22 +2,28 @@ from tkinter import *
 from tkinter import ttk
 import json
 from functools import partial
+import pyperclip3
 
 
 button_columns = 4
 
-def fill_output(parms, ctext):
+def fill_output(parms, ctext, lname, des):
 
     output.delete(0, END)
-    print("in fill_output")
     for parm in parms:
         val = parm_dict[parm].get()
-        print(val)
         if val:
             ctext = ctext.replace("{"+parm+"}", val)
 
+    des_label_text.set(lname)
+    des_text_text.set(des)
+
+
     output.insert(0, ctext)
     return
+
+def copy_button():
+    pyperclip3.copy(output.get())
 
 def main():
     with open("config.json", "r") as f:
@@ -25,6 +31,7 @@ def main():
 
     root = Tk()
     root.title("Hackpad")
+    root.geometry("1025x725")
     # root.iconbitmap("images/winged-arrow_38729.ico")
 
     parms_frame = LabelFrame(root, text="Parameters", padx=5, pady=5)
@@ -36,6 +43,9 @@ def main():
     output_frame = LabelFrame(root, text="Output", padx=5, pady=5)
     output_frame.grid(row=2, column=0, padx=10, pady=10)
 
+    des_frame = LabelFrame(root, text="Description", padx=5, pady=5)
+    des_frame.grid(row=0, column=1, padx=10, pady=10)
+
     sections = []
     parms = []
     for j, section in enumerate(configs["sections"]):
@@ -43,7 +53,7 @@ def main():
         sections[j].pack(fill="both", expand=1)
         buttons = []
         for key in section["keys"]:
-            fill_output2 = partial(fill_output, key["parms"], key["ctext"])
+            fill_output2 = partial(fill_output, key["parms"], key["ctext"], key["lname"], key["des"])
             buttons.append(Button(sections[j], text=key["qname"], width=15, height=5, command=fill_output2))
             parms += key["parms"]
 
@@ -57,8 +67,7 @@ def main():
 
         button_notebook.add(sections[j],text=section["title"])
 
-    parms = list(set(parms))
-    print(parms)
+    parms = sorted(list(set(parms)))
 
     parm_frames = []
     global parm_dict
@@ -76,15 +85,24 @@ def main():
         frame.grid(row=f_row, column= i % 2)
 
 
+    global des_label_text
+    global des_text_text
+    des_label_text = StringVar()
+    des_text_text = StringVar()
+    des_label = Label(des_frame, textvariable=des_label_text, justify=LEFT, anchor="w")
+    des_text = Message(des_frame, textvariable=des_text_text, justify=LEFT, anchor="w", width=200)
+    des_label.grid(sticky = W, row=0,column=0)
+    des_text.grid(sticky = W, row=1,column=0)
 
 
-
-    output_label = Label(output_frame, text="Copy String")
+    output_label = Label(output_frame, text="Copy String", justify=LEFT, anchor="w")
     global output
     output = Entry(output_frame, width=50)
+    output_button = Button(output_frame, text="copy", command=copy_button)
 
-    output_label.grid(row=0, column=0, columnspan=button_columns)
-    output.grid(row=1, column=0, columnspan=button_columns)
+    output_label.grid(sticky = W, row=0, column=0, columnspan=button_columns)
+    output.grid(row=1, column=0, columnspan=button_columns-1)
+    output_button.grid(row=1, column=button_columns)
 
     root.mainloop()
 
