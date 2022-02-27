@@ -27,12 +27,11 @@ def fill_output(parms, ctext, lname, des):
 
 def copy_button():
     """Copies text in output to user's clipboard"""
-	
     pyperclip3.copy(output.get())
 
 
 def main():
-    with open("config.json", "r") as f:
+    with open("config.json", "r", encoding="utf-8") as f:
         configs = json.loads(f.read())
 
     # Defining root Tk object that all other widgets will be stored in
@@ -79,10 +78,8 @@ def main():
 
             try:
                 buttons.append(Button(sections[-1], text=key["qname"], highlightbackground=key["color"], width=button_w, height=button_h, command=fill_output2))
-                print("Color Added")
             
             except KeyError:
-                print("No Color")
                 buttons.append(Button(sections[-1], text=key["qname"], width=button_w, height=button_h, command=fill_output2))
 
             parms += key["parms"]
