@@ -12,6 +12,14 @@ def fill_output(parms, ctext, lname, des):
     Parameters if they're available."""
 
     output.delete(0, END)
+
+    for parm, parm_entry in parm_dict.items():
+        if parm not in parms:
+            parm_entry.config(state="disabled")
+        else:
+            parm_entry.config(state="normal")
+
+
     for parm in parms:
         val = parm_dict[parm].get()
         if val:
