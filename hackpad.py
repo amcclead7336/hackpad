@@ -37,6 +37,19 @@ def copy_button():
     """Copies text in output to user's clipboard"""
     pyperclip3.copy(output.get())
 
+def reset_fields():
+
+    for parm, parm_entry in parm_dict.items():
+        parm_entry.config(state="normal")
+        parm_entry.delete(0, END)
+
+    des_label_text.set(" ")
+    des_text_text.set(" ")
+    output.delete(0, END)
+
+def exit_click(root):
+    root.destroy()
+
 
 def main():
     with open("config.json", "r", encoding="utf-8") as f:
@@ -63,7 +76,11 @@ def main():
 
     # Description Frame
     des_frame = LabelFrame(root, text="Description", padx=5, pady=5)
-    des_frame.grid(row=0, column=1, padx=10, pady=10)
+    des_frame.grid(row=0, column=1, padx=10, pady=10, rowspan=2)
+
+    # Reset and exit button frame
+    re_frame = Frame(root, padx=5, pady=5)
+    re_frame.grid(row=2, column=1, padx=10, pady=10)
 
 
 
@@ -126,9 +143,13 @@ def main():
     des_text_text = StringVar()
     des_label = Label(des_frame, textvariable=des_label_text, justify=LEFT, anchor="w", font=("Courier", 25))
     des_text = Message(des_frame, textvariable=des_text_text, justify=LEFT, anchor="w", width=300)
-    des_label.grid(sticky = W, row=0,column=0)
-    des_text.grid(sticky = W, row=1,column=0)
+    des_label.grid(sticky=W, row=0, column=0)
+    des_text.grid(sticky=W, row=1, column=0)
 
+    reset_button = Button(re_frame, text="Reset", command=reset_fields)
+    exit_button = Button(re_frame, text="Exit", command=lambda: exit_click(root))
+    reset_button.grid(row=0, column=0)
+    exit_button.grid(row=0, column=1)
 
     output_label = Label(output_frame, text="Copy String", justify=LEFT, anchor="w")
     global output
