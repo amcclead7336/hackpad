@@ -58,6 +58,7 @@ def main():
     des_frame.grid(row=0, column=1, padx=10, pady=10)
 
 
+
     # Inside the button_notebook are LabelFrames for each section in the config.json
     sections = []
     # Filling parms for all buttons
@@ -115,7 +116,7 @@ def main():
     global des_text_text
     des_label_text = StringVar()
     des_text_text = StringVar()
-    des_label = Label(des_frame, textvariable=des_label_text, justify=LEFT, anchor="w")
+    des_label = Label(des_frame, textvariable=des_label_text, justify=LEFT, anchor="w", font=("Courier", 25))
     des_text = Message(des_frame, textvariable=des_text_text, justify=LEFT, anchor="w", width=300)
     des_label.grid(sticky = W, row=0,column=0)
     des_text.grid(sticky = W, row=1,column=0)

