@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import json
 from functools import partial
-import pyperclip3
+import clipboard
 
 
 button_columns = 4
@@ -35,7 +35,7 @@ def fill_output(parms, ctext, lname, des):
 
 def copy_button():
     """Copies text in output to user's clipboard"""
-    pyperclip3.copy(output.get())
+    clipboard.copy(output.get())
 
 def reset_fields():
 
